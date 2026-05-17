@@ -106,7 +106,12 @@ export function EditorPage() {
     onCreate: ({ editor }) => {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
-        editor.commands.setContent(JSON.parse(saved), false);
+        try {
+          editor.commands.setContent(JSON.parse(saved), false);
+        } catch (error) {
+          console.error('Failed to parse saved editor state:', error);
+          localStorage.removeItem(STORAGE_KEY);
+        }
       }
     },
   });
