@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body { @apply font-sans; }
+.toolbar-btn { @apply inline-flex items-center gap-1 rounded-lg border border-stone-300 dark:border-stone-700 px-3 py-1.5 text-sm hover:bg-stone-200/60 dark:hover:bg-stone-800/80; }
+
+.ProseMirror { @apply min-h-[60vh] leading-8 text-[18px]; }
+.ayah-block { @apply my-8 text-center text-3xl text-ayah font-quran leading-[2.6rem] px-4; direction: rtl; }
+.ayah-block .ayah-ref { @apply mt-2 text-xs tracking-wider text-stone-500 dark:text-stone-400; direction: ltr; }
+.ayah-block p::after { content: ' ۝'; font-size: 1.2rem; }
+
+.hadith-block { @apply my-6 rounded-r-xl border-l-4 border-hadith bg-[#EEF4EB] dark:bg-[#2A3328] px-4 py-3; }
+.hadith-block p { @apply font-amiri text-2xl leading-10; direction: rtl; }
+.hadith-meta { @apply mt-2 text-xs text-hadith; }
+.hadith-grade { @apply inline-block mt-2 rounded-full px-2 py-0.5 text-xs font-semibold; }
+.hadith-grade.sahih { @apply bg-emerald-200 text-emerald-900 dark:bg-emerald-800 dark:text-emerald-100; }
+.hadith-grade.hasan { @apply bg-amber-200 text-amber-900 dark:bg-amber-800 dark:text-amber-100; }
+.hadith-grade.da'if { @apply bg-rose-200 text-rose-900 dark:bg-rose-800 dark:text-rose-100; }
+.hadith-translation { @apply mt-2 text-sm text-stone-600 dark:text-stone-400; direction: ltr; }
+
+.commentary-block { @apply my-4 text-[1.1rem] text-stone-800 dark:text-stone-200; }
+.commentary-block p { direction: auto; }
