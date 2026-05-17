@@ -17,7 +17,7 @@ body { @apply font-sans; }
 .hadith-grade { @apply inline-block mt-2 rounded-full px-2 py-0.5 text-xs font-semibold; }
 .hadith-grade.sahih { @apply bg-emerald-200 text-emerald-900 dark:bg-emerald-800 dark:text-emerald-100; }
 .hadith-grade.hasan { @apply bg-amber-200 text-amber-900 dark:bg-amber-800 dark:text-amber-100; }
-.hadith-grade.da'if { @apply bg-rose-200 text-rose-900 dark:bg-rose-800 dark:text-rose-100; }
+.hadith-grade.daif { @apply bg-rose-200 text-rose-900 dark:bg-rose-800 dark:text-rose-100; }
 .hadith-translation { @apply mt-2 text-sm text-stone-600 dark:text-stone-400; direction: ltr; }
 
 .commentary-block { @apply my-4 text-[1.1rem] text-stone-800 dark:text-stone-200; }

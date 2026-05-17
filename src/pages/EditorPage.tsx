@@ -55,7 +55,7 @@ const HadithBlock = Node.create({
       mergeAttributes(HTMLAttributes, { 'data-type': 'hadith-block', class: 'hadith-block' }),
       ['p', 0],
       ['div', { class: 'hadith-meta' }, `${HTMLAttributes.narrator} • ${HTMLAttributes.source}`],
-      ['div', { class: `hadith-grade ${String(HTMLAttributes.grade).toLowerCase()}` }, HTMLAttributes.grade],
+      ['div', { class: `hadith-grade ${String(HTMLAttributes.grade).toLowerCase().replace(/[^a-z0-9-]/g, '')}` }, HTMLAttributes.grade],
       ...(HTMLAttributes.translation ? [['p', { class: 'hadith-translation' }, HTMLAttributes.translation]] : []),
     ];
   },
