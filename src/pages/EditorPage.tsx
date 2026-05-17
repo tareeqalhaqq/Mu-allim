@@ -91,6 +91,7 @@ const MUALLIM_FILE_EXTENSION = '.muallim';
 
 export function EditorPage() {
   const [dark, setDark] = useState(false);
+  const [editorLoadFailed, setEditorLoadFailed] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const extensions = useMemo(
@@ -111,6 +112,7 @@ export function EditorPage() {
         } catch (error) {
           console.error('Failed to parse saved editor state:', error);
           localStorage.removeItem(STORAGE_KEY);
+          setEditorLoadFailed(true);
         }
       }
     },
@@ -179,8 +181,6 @@ export function EditorPage() {
     }
   };
 
-  if (!editor) return null;
-
   return (
     <div className={dark ? 'dark' : ''}>
       <div className="min-h-screen bg-parchment text-stone-800 dark:bg-night dark:text-stone-200 transition-colors">
@@ -188,11 +188,11 @@ export function EditorPage() {
           <div className="mx-auto max-w-6xl px-6 py-3 flex items-center justify-between">
             <h1 className="font-quran text-2xl text-ayah">Mu'allim</h1>
             <div className="flex items-center gap-2">
-              <ToolbarButton icon={<BookOpen size={16} />} label="Ayah" onClick={() => editor.chain().focus().setAyahBlock().run()} />
-              <ToolbarButton icon={<ScrollText size={16} />} label="Hadith" onClick={() => editor.chain().focus().setHadithBlock().run()} />
-              <ToolbarButton icon={<MessageSquareQuote size={16} />} label="Commentary" onClick={() => editor.chain().focus().setCommentaryBlock().run()} />
-              <button onClick={() => editor.chain().focus().toggleBold().run()} className="toolbar-btn">B</button>
-              <button onClick={() => editor.chain().focus().toggleItalic().run()} className="toolbar-btn italic">I</button>
+              <ToolbarButton icon={<BookOpen size={16} />} label="Ayah" onClick={() => editor?.chain().focus().setAyahBlock().run()} />
+              <ToolbarButton icon={<ScrollText size={16} />} label="Hadith" onClick={() => editor?.chain().focus().setHadithBlock().run()} />
+              <ToolbarButton icon={<MessageSquareQuote size={16} />} label="Commentary" onClick={() => editor?.chain().focus().setCommentaryBlock().run()} />
+              <button onClick={() => editor?.chain().focus().toggleBold().run()} className="toolbar-btn">B</button>
+              <button onClick={() => editor?.chain().focus().toggleItalic().run()} className="toolbar-btn italic">I</button>
               <button onClick={saveLocalFile} className="toolbar-btn"><Save size={14} /> Save</button>
               <button onClick={triggerImport} className="toolbar-btn"><FolderOpen size={14} /> Import</button>
               <button onClick={exportPdf} className="toolbar-btn"><Download size={14} /> PDF</button>
@@ -210,7 +210,15 @@ export function EditorPage() {
         <main className="mx-auto max-w-4xl px-6 py-10">
           <div className="mb-6 h-5 opacity-40 bg-[radial-gradient(circle,_rgba(184,134,11,0.45)_1px,_transparent_1px)] bg-[length:14px_14px]" />
           <article id="editor-export" className="rounded-2xl border border-stone-300/70 dark:border-stone-700 bg-white/70 dark:bg-stone-900/40 shadow-sm p-8">
-            <EditorContent editor={editor} />
+            {editor ? (
+              <EditorContent editor={editor} />
+            ) : (
+              <p className="text-stone-600 dark:text-stone-300">
+                {editorLoadFailed
+                  ? 'Unable to load a previous local draft. It has been reset, and you can start a new note.'
+                  : 'Loading editor…'}
+              </p>
+            )}
           </article>
         </main>
       </div>
